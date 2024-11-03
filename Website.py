@@ -565,6 +565,17 @@ def extract_courses(pdf_path):
     
     return filtered_data
 
+def display_courses_pdf(course_data):
+    if course_data:
+        # Create a DataFrame from the course data
+        df = pd.DataFrame(course_data)
+        
+        # Display the DataFrame in Streamlit
+        st.subheader("Extracted Courses")
+        st.dataframe(df)  # Displays the DataFrame as an interactive table
+    else:
+        st.warning("No courses available to display.")
+
 def display_courses(course_data):
     df_courses = pd.DataFrame(course_data)
     
@@ -598,7 +609,7 @@ def main():
             extracted_courses = extract_courses(transcript)
             if extracted_courses:
                 st.success("Courses extracted successfully!")
-                #display_courses(extracted_courses)
+                display_courses_pdf(extracted_courses)
                 #download_files(extracted_courses)
             else:
                 st.error("No courses found in the transcript.")
