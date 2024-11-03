@@ -142,15 +142,29 @@ def display_courses(course_data):
     
     # Prepare the AgGrid and hide the original 'days' column
     gb = GridOptionsBuilder.from_dataframe(df_courses)
-    
-    # Hide the 'days' column
     gb.configure_column("days", hide=True)  # Hides the 'days' column
     grid_options = gb.build()
     
     st.subheader("Course List")
-    
     # Display the DataFrame using AgGrid, including 'formatted_days'
     AgGrid(df_courses[['course_name', 'start_time', 'end_time', 'formatted_days']], gridOptions=grid_options, allow_unsafe_jscode=True)
+
+def upload_transcript():
+    st.subheader("Upload Transcript")
+    uploaded_file = st.file_uploader("Choose a transcript file", type=["pdf", "csv", "txt"])
+    
+    if uploaded_file is not None:
+        if uploaded_file.type == "text/csv":
+            transcript_data = pd.read_csv(uploaded_file)
+            st.write("Transcript Data:")
+            st.dataframe(transcript_data)
+        elif uploaded_file.type == "application/pdf":
+            st.write("PDF format detected. Processing...")
+            # PDF processing logic can go here (using libraries like PyPDF2 or pdfplumber)
+        elif uploaded_file.type == "text/plain":
+            transcript_data = uploaded_file.read().decode("utf-8")
+            st.write("Transcript Text:")
+            st.text(transcript_data)
 
 def main():
     departments, majors, years, semesters = load_data()
@@ -159,16 +173,28 @@ def main():
     if departments and majors and duke_name and hack_logo:
         display_header(duke_name, hack_logo)
 
-        # Sample course data
-        course_data = [
-            {"day": "mowe", "start_time": "10:00", "end_time": "11:30", "course_name": "Data Science 101"},
-            {"day": "tuth", "start_time": "14:00", "end_time": "15:30", "course_name": "Machine Learning"},
-            {"day": "f", "start_time": "09:00", "end_time": "10:30", "course_name": "Statistical Analysis"},
-        ]
+        # User input selection
+        st.subheader("Select Your Preferences")
+        selected_department = st.selectbox("Department", departments)
+        selected_major = st.selectbox("Major", majors)
+        selected_year = st.selectbox("Year", years)
+        selected_semester = st.selectbox("Semester", semesters)
 
-        # You may need to define this function based on your requirements
-        display_courses(course_data)  # New function to display course info
-        download_files(course_data)
+        # Upload transcript section
+        upload_transcript()
+
+        # Processing button to trigger backend actions
+        if st.button("Generate Recommendations"):
+            st.write("Processing your inputs and generating recommendations...")
+            
+            course_data = [
+                {"day": "mowe", "start_time": "10:00", "end_time": "11:30", "course_name": "Data Science 101"},
+                {"day": "tuth", "start_time": "14:00", "end_time": "15:30", "course_name": "Machine Learning"},
+                {"day": "f", "start_time": "09:00", "end_time": "10:30", "course_name": "Statistical Analysis"},
+            ]
+            
+            display_courses(course_data)
+            download_files(course_data)
 
 if __name__ == "__main__":
     main()
