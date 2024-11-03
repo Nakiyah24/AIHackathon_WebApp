@@ -1,3 +1,9 @@
 streamlit-calendar==1.2.0
 streamlit streamlit-aggrid==1.0.5
-calplot==0.1.7.5
+PyMuPDF
+pandas
+numpy
+sklearn
+sentence_transformers
+langchain
+pydantic

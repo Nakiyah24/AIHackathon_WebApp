@@ -1,6 +1,5 @@
-# **Course Recommendation System Using NLP & Transformers**
-## Team: 
 
+# **Course Recommendation System Using NLP & Transformers**
 
 ## **Overview**
 

@@ -298,6 +298,8 @@ def main():
             {"day": "mowe", "start_time": "10:00", "end_time": "11:30", "course_name": "Data Science 101"},
             {"day": "tuth", "start_time": "14:00", "end_time": "15:30", "course_name": "Machine Learning"},
             {"day": "f", "start_time": "09:00", "end_time": "10:30", "course_name": "Statistical Analysis"},
+            {"day": "f", "start_time": "11:00", "end_time": "1:30", "course_name": "Data Engineering"},
+            {"day": "mowe", "start_time": "15:00", "end_time": "16:30", "course_name": "Practical Data Science"},
         ]
 
         # You may need to define this function based on your requirements
