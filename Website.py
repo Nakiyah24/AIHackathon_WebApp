@@ -10,7 +10,6 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 import calplot  # Calendar heatmap
 import matplotlib.pyplot as plt
 
-
 def load_data():
     # Load department and major lists
     try:
@@ -100,39 +99,6 @@ def generate_ics(course_data):
                     cal.events.add(event)
     return cal
 
-def display_calendar_heatmap(course_data):
-    # Prepare date list for heatmap display
-    today = datetime.now()
-    start_date = today.replace(day=1)  # First day of the current month
-    end_date = (start_date + timedelta(days=32)).replace(day=1) - timedelta(days=1)  # Last day of the current month
-    dates = []
-
-    for course in course_data:
-        days = parse_merged_days(course['day'])
-        for day in days:
-            weekday = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'].index(day)
-            # Use a loop to add dates in the current month for the selected days.
-            for i in range(5):  # Up to 5 weeks in a month
-                course_date = start_date + timedelta(days=(7 * i + weekday))
-                if start_date <= course_date <= end_date:
-                    dates.append(course_date)
-
-    # Prepare the data for the heatmap
-    date_counts = pd.Series(dates).value_counts().sort_index()
-
-    # Create a DataFrame for calplot
-    date_counts.index = pd.to_datetime(date_counts.index)  # Ensure index is datetime
-    heatmap_data = date_counts.resample('D').sum()  # Resample for daily counts
-
-    # Create the calendar heatmap using calplot without passing xrot
-    calplot.calplot(heatmap_data, cmap='Blues', fillcolor='white', how='sum')
-
-    # Display the plot in Streamlit
-    plt.title("Course Schedule Heatmap for Current Month")  # Add title for clarity
-    plt.tight_layout()  # Ensure the layout is neat
-    st.pyplot(plt.gcf())  # Use the current figure
-
-
 def save_excel(course_data):
     df = pd.DataFrame(course_data)
     # Split the days string into separate columns for each day
@@ -149,7 +115,7 @@ def save_excel(course_data):
 def save_ics(calendar):
     with open("calendar.ics", "w") as f:
         f.writelines(calendar)
-        
+
 def download_files(course_data):
     calendar = generate_ics(course_data)
     save_ics(calendar)  # This will save the .ics file locally
@@ -166,6 +132,26 @@ def download_files(course_data):
     st.markdown(ics_link, unsafe_allow_html=True)
     st.markdown(excel_link, unsafe_allow_html=True)
 
+def display_courses(course_data):
+    # Create a DataFrame to display course details
+    df_courses = pd.DataFrame(course_data)
+    
+    # Expand days into a more readable format (not displayed in AgGrid)
+    df_courses['days'] = df_courses['day'].apply(parse_merged_days)
+    df_courses['formatted_days'] = df_courses['days'].apply(lambda x: ', '.join(x))
+    
+    # Prepare the AgGrid and hide the original 'days' column
+    gb = GridOptionsBuilder.from_dataframe(df_courses)
+    
+    # Hide the 'days' column
+    gb.configure_column("days", hide=True)  # Hides the 'days' column
+    grid_options = gb.build()
+    
+    st.subheader("Course List")
+    
+    # Display the DataFrame using AgGrid, including 'formatted_days'
+    AgGrid(df_courses[['course_name', 'start_time', 'end_time', 'formatted_days']], gridOptions=grid_options, allow_unsafe_jscode=True)
+
 def main():
     departments, majors, years, semesters = load_data()
     duke_name, hack_logo = load_images()
@@ -180,7 +166,8 @@ def main():
             {"day": "f", "start_time": "09:00", "end_time": "10:30", "course_name": "Statistical Analysis"},
         ]
 
-        display_calendar_heatmap(course_data)
+        # You may need to define this function based on your requirements
+        display_courses(course_data)  # New function to display course info
         download_files(course_data)
 
 if __name__ == "__main__":
