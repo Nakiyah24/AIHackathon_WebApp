@@ -103,24 +103,11 @@ remove_dict= [
 - You can modify the `subjects` list to add/remove course subjects relevant to your institution.
 - Modify `sem_var` to filter courses based on the semester (e.g., `fall`, `spring`).
 
-### **4. Example Output**
-
-A sample output might look like:
-
-```python
-Course ID | Catalog Number | Title                              | Description                                            | Subject
---------- | ---------------|----------------------------------- | ------------------------------------------------------ | -------
-BIO301    | 301            | Biomedical Data Analysis           | Learn the principles of data science in biomedicine... | BIOSTAT
-MLH401    | 401            | Machine Learning in Healthcare     | A course focused on applying ML techniques in healt... | MENG
-DS201     | 201            | Data Structures and Algorithms     | An advanced course on data structures and algorithms. | COMPSCI
-...
-```
-
-### **5. Using GPT for Better Recommendations**
+### **4. Using GPT for Better Recommendations**
 
 After filtering and ranking the courses, the final list is refined using GPT-3.5 to recommend the most relevant courses based on the user’s career goals.
 
-### **6. Prompt for GPT-3.5-turbo**
+### **5. Prompt for GPT-3.5-turbo**
 
 The prompt is dynamically generated and structured as follows:
 
@@ -150,12 +137,4 @@ Based on the following user query, recommend **top 5 courses** from the courses 
 - **OpenAI API**: For querying GPT-3.5-turbo for recommendations.
 - **Pandas**: For data handling and filtering.
 - **SQLite**: As the database to store and retrieve course information.
-
-## **License**
-
-This project is licensed under the MIT License.
-
-## **Contact**
-
-For any questions or suggestions, please feel free to contact the project maintainers through the GitHub repository or by email.
 

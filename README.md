@@ -1,10 +1,16 @@
 # **Course Recommendation System Using NLP & Transformers**
 ## Team: 
+!["SyedHuma Shah"](https://github.com/shumashah)
+!["Arko Bhattacharya"](https://github.com/arko-sys)
+!["Nakiyah Dhariwala"](https://github.com/Nakiyah24)
+!["Jennifer Li"](https://github.com/Jenniferli6)
 
 
 ## **Overview**
 
-This project is an AI-based **course recommendation system** designed to help students find the most relevant courses based on their interests and career goals. The system leverages **Natural Language Processing (NLP)** models like **Sentence-BERT** and **Cross-Encoder** for semantic search, cosine similarity for course ranking, and OpenAI's **GPT-3.5-turbo** for natural language-based recommendations. The system recommends courses by analyzing user queries and course descriptions from a local database of courses.
+Our project is an AI-powered course recommendation and scheduling tool that enables students to seamlessly align their academic plans with career aspirations. Leveraging few-shot learning with GPT-3.5 Turbo and domain-specific SciBERT embeddings, our system conducts advanced, context-aware course selection, intelligently analyzing each student's goals, academic background, and current coursework. This sophisticated approach provides tailored course recommendations that maximize relevance and learning outcomes by combining GPT-3.5 Turbo's capabilities to understand complex queries with a two-stage ranking model (bi-encoder for initial matching and cross-encoder for refined re-ranking). This ensures that recommendations are not only aligned with students’ interests but also enriched with precise, contextual insights.
+The platform offers unique, high-precision results that standard course catalogs and keyword searches lack, effectively addressing the complexities of finding relevant courses across departments, majors, and levels. Each recommendation is displayed on an intuitive calendar view, allowing students to visualize their schedule, sync it with Google Calendar, or export it as an Excel file for comprehensive planning.
+By helping students make informed, strategic course choices, institutions can also enhance enrollment rates and course fill efficiency. The advanced AI behind put project  introduces monetizable opportunities to license or integrate with educational technology providers, creating a scalable, revenue-generating path that appeals to both academic institutions and individual students seeking targeted learning experiences.
 
 ## **Key Features**
 
@@ -104,24 +110,11 @@ remove_dict= [
 - You can modify the `subjects` list to add/remove course subjects relevant to your institution.
 - Modify `sem_var` to filter courses based on the semester (e.g., `fall`, `spring`).
 
-### **4. Example Output**
-
-A sample output might look like:
-
-```python
-Course ID | Catalog Number | Title                              | Description                                            | Subject
---------- | ---------------|----------------------------------- | ------------------------------------------------------ | -------
-BIO301    | 301            | Biomedical Data Analysis           | Learn the principles of data science in biomedicine... | BIOSTAT
-MLH401    | 401            | Machine Learning in Healthcare     | A course focused on applying ML techniques in healt... | MENG
-DS201     | 201            | Data Structures and Algorithms     | An advanced course on data structures and algorithms. | COMPSCI
-...
-```
-
-### **5. Using GPT for Better Recommendations**
+### **4. Using GPT for Better Recommendations**
 
 After filtering and ranking the courses, the final list is refined using GPT-3.5 to recommend the most relevant courses based on the user’s career goals.
 
-### **6. Prompt for GPT-3.5-turbo**
+### **5. Prompt for GPT-3.5-turbo**
 
 The prompt is dynamically generated and structured as follows:
 

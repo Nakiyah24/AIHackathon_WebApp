@@ -7,3 +7,4 @@ sklearn
 sentence_transformers
 langchain
 pydantic
+openAI
