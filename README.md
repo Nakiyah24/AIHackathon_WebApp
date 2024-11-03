@@ -1,9 +1,9 @@
 # **Course Recommendation System Using NLP & Transformers**
 ## Team: 
-!["SyedHuma Shah"](https://github.com/shumashah)
-!["Arko Bhattacharya"](https://github.com/arko-sys)
-!["Nakiyah Dhariwala"](https://github.com/Nakiyah24)
-!["Jennifer Li"](https://github.com/Jenniferli6)
+SyedHuma Shah - https://github.com/shumashah
+Arko Bhattacharya - https://github.com/arko-sys
+Nakiyah Dhariwala - https://github.com/Nakiyah24
+Jennifer Li - https://github.com/Jenniferli6
 
 
 ## **Overview**
