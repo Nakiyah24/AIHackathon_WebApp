@@ -17,6 +17,9 @@ def extract_courses(pdf_path):
             for i in range(len(lines)):
                 line = lines[i].strip()
                 
+                # Debug print: Show each line being processed
+                print(f"Processing line: {line}")
+                
                 # Check if line is a likely subject code (e.g., 'IDS', 'GS')
                 if line.isupper() and len(line.split()) <= 4 and line.isalpha() and not line.startswith("DESCRIPTION"):
                     # Save any previously accumulated course data
@@ -27,13 +30,16 @@ def extract_courses(pdf_path):
                             'title': course_title
                         })
                         title_parts = []  # Reset for the next course
+                        print(f"Added course: {subject_code} - {course_title}")
                     
                     # Update the current line as subject code
                     subject_code = line
+                    print(f"Identified subject code: {subject_code}")
                     
                 # Check if the line is part of the course title
                 elif line and not any(char.isdigit() for char in line) and line != '-':
                     title_parts.append(line)  # Collect lines as part of title
+                    print(f"Appending to title: {line}")
                     
             # After the loop, save any remaining title
             if title_parts and subject_code:
@@ -42,8 +48,9 @@ def extract_courses(pdf_path):
                     'subject': subject_code,
                     'title': course_title
                 })
+                print(f"Added final course: {subject_code} - {course_title}")
     
-    # Filter out any unrelated entries
+    # Filter out any unrelated entries (comment this out for testing)
     filtered_data = [course for course in course_data if course['subject'] in {'IDS', 'GS'}]
     
     return filtered_data
@@ -51,5 +58,4 @@ def extract_courses(pdf_path):
 # Usage
 pdf_path = "Grades.pdf"  # Replace with your PDF file path
 courses = extract_courses(pdf_path)
-print(courses)
-
+print("Extracted courses:", courses)
